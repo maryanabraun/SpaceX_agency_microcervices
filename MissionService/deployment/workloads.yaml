@@ -1,0 +1,40 @@
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: missionservice
+spec:
+  selector:
+    app: missionservice
+  type: NodePort
+  ports:
+    - name: http
+      port: 8082
+      nodePort: 31002
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: missionservice
+spec:
+  selector:
+    matchLabels:
+      app: missionservice
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: missionservice
+    spec:
+      containers:
+        - name: server
+          image: maniabraun/missionservice
+          ports:
+            - name: http
+              containerPort: 8082
+
+
+
+

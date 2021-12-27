@@ -1,0 +1,40 @@
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: spacecraftservice
+spec:
+  selector:
+    app: spacecraftservice
+  type: NodePort
+  ports:
+    - name: http
+      port: 8083
+      nodePort: 31003
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spacecraftservice
+spec:
+  selector:
+    matchLabels:
+      app: spacecraftservice
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: spacecraftservice
+    spec:
+      containers:
+        - name: server
+          image: maniabraun/spacecraftservice
+          ports:
+            - name: http
+              containerPort: 8083
+
+
+
+
