@@ -30,9 +30,17 @@ spec:
     spec:
       containers:
         - name: server
+          env:
+            - name: DB_NAME
+              value: spacex_agency_system
+            - name: DB_USERNAME
+              value: root
+            - name: DB_PASSWORD
+              value: password
           image: maniabraun/missionservice
           ports:
             - name: http
+
               containerPort: 8082
 
 
